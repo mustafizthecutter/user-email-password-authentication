@@ -11,6 +11,7 @@ const Register = () => {
         e.preventDefault();
         const email = e.target.email.value
         const password = e.target.password.value
+        const checked = e.target.terms.checked
         console.log(email, password);
         setRegisterError('');
         setSuccess('');
@@ -20,6 +21,10 @@ const Register = () => {
         }
         else if (!/[A-Z]/.test(password)) {
             setRegisterError('You Password should have at least one Uppercase letters!!!!!!');
+            return;
+        }
+        else if (!checked) {
+            setRegisterError('Please Check Our terms & conditions');
             return;
         }
 
@@ -37,15 +42,21 @@ const Register = () => {
         <div className="">
             <div className="mx-auto md:w-1/2">
                 <h2 className="text-3xl mb-8">This is Register!!</h2>
-                <form className="relative" onSubmit={handleRegister}>
+                <form className="" onSubmit={handleRegister}>
                     <input className="px-4 py-2 mb-4 w-full" type="email" name="email" id="" placeholder="Your Email Address Here" required />
                     <br />
 
 
-                    <input className=" px-4 py-2 mb-4 w-full" type={showPassword ? 'text' : 'password'} name="password" id="" placeholder="Password Here" required />
+                    <div className="relative">
+                        <input className=" px-4 py-2 mb-4 w-full" type={showPassword ? 'text' : 'password'} name="password" id="" placeholder="Password Here" required />
 
-                    <span className="absolute right-4 " onClick={() => setShowPassword(!showPassword)}>{showPassword ? <IoEyeOff className="text-3xl" /> : <IoEye className="text-3xl" />}</span>
+                        <span className="absolute right-2 top-2 " onClick={() => setShowPassword(!showPassword)}>{showPassword ? <IoEyeOff className="text-3xl" /> : <IoEye className="text-3xl" />}</span>
+                    </div>
                     <br />
+                    <div className="mb-4">
+                        <input type="checkbox" name="terms" id="" />
+                        <label className="ml-2" htmlFor="terms">Apply our <a href="">terms & conditions</a></label>
+                    </div>
                     <input className="btn btn-secondary px-4 py-2 mb-4 w-full" type="submit" value="Register" />
                 </form>
                 {
